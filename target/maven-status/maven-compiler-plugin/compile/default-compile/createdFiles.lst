@@ -1,0 +1,17 @@
+com\schinta\crawl\service\impl\NewsServiceImpl.class
+com\schinta\crawl\model\NewsExample$GeneratedCriteria.class
+com\schinta\crawl\util\ClassUtil.class
+com\schinta\crawl\service\impl\TaskServiceImpl.class
+com\schinta\crawl\controller\IndexController.class
+com\schinta\crawl\dao\NewsMapper.class
+com\schinta\crawl\service\impl\BaseCrawlImpl.class
+com\schinta\crawl\model\Site.class
+com\schinta\crawl\model\NewsExample$Criterion.class
+com\schinta\crawl\service\impl\WangyiCrawlImpl.class
+com\schinta\crawl\service\TaskService.class
+com\schinta\crawl\model\NewsExample.class
+com\schinta\crawl\service\NewsService.class
+com\schinta\crawl\controller\SolrController.class
+com\schinta\crawl\model\NewsExample$Criteria.class
+com\schinta\crawl\service\CrawlService.class
+com\schinta\crawl\model\News.class
