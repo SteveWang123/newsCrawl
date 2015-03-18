@@ -10,6 +10,7 @@ import org.apache.solr.common.SolrDocumentList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,7 +19,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
+import java.net.URLDecoder;
 import java.util.*;
 
 /**
@@ -39,17 +42,20 @@ public class SolrController {
         return  "test";
     }
 
-    @RequestMapping("/tosearch")
+    @RequestMapping(value = "/tosearch",method = RequestMethod.POST)
     public ModelAndView tosearch(HttpServletRequest request, HttpServletResponse response) throws IOException, SolrServerException
     {
-        String queryString=request.getParameter("querystring");
-
-        SolrDocumentList zbdocs=search(queryString);
-
+//        String queryString = URLDecoder.decode(request.getParameter("querystring"), "UTF-8");
         ModelAndView mv =new ModelAndView();
+        String queryString = request.getParameter("querystring");
+        System.out.println("queryString is "+queryString);
+        if(StringUtils.hasLength(queryString)){
+            SolrDocumentList newsdocs = search(queryString);
+            mv.addObject("newsdocs",newsdocs);
+        }
 
         mv.setViewName("search");
-        mv.addObject("zbdocs",zbdocs);
+
         return mv;
     }
 
@@ -102,7 +108,7 @@ public class SolrController {
         SolrDocumentList docs=null;
         SolrServer solrServer = getSolrServer();
         SolrQuery query = new SolrQuery();
-        query.setQuery("zbtitle:"+string);
+        query.setQuery("newsContent:" + string);
 
         try
         {
@@ -110,6 +116,8 @@ public class SolrController {
             docs = rsp.getResults();
             logger.info("文档个数：" + docs.getNumFound());
             logger.info("查询时间：" + rsp.getQTime());
+
+            System.out.println(docs);
 
         }
         catch (SolrServerException e)

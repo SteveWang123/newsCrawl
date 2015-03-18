@@ -13,7 +13,7 @@
 
     <meta charset="utf-8"/>
 
-    <title>水利工程招标信息汇总</title>
+    <title>信息汇总</title>
 
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 
@@ -215,13 +215,13 @@
 
                             <!-- BEGIN FORM-->
 
-                            <form action="/q/tosearch.html" class="form-horizontal login-form">
+                            <form action="${rc.contextPath}/tosearch.html" method="post" class="form-horizontal">
 
                                     <label class="control-label">请输入：</label>
 
                                     <div class="controls">
 
-                                        <input id="querystring" name="querystring" type="text" class="span6 m-wrap"  />
+                                        <input  name="querystring" type="text" class="span6 m-wrap"  />
 
                                         <input id="su" class="btn blue" type="submit" value="搜索"  >
 
@@ -243,19 +243,19 @@
 
                                 <span name="alert" class="alert alert-error hide">没有找到任何信息</span>
 
-                                <div class="accordion in collapse <#if !(zbdocs?exists)>hide</#if>" id="accordion1"
+                                <div class="accordion in collapse <#if !(newsdocs?exists)>hide</#if>" id="accordion1"
                                      style="height: auto;">
 
 
-                                <#if zbdocs?exists>
-                                <#list zbdocs as tmp>
+                                <#if newsdocs?exists>
+                                <#list newsdocs as tmp>
                                     <div class="accordion-group">
                                         <div class="accordion-heading">
                                             <button class="btn red"
-                                                    type="button">${tmp.pubdate!""}</button>
+                                                    type="button">${tmp.newsPubdate!""}</button>
                                             <a class="btn " target="_blank"
-                                               href="${tmp.link}">
-                                            ${tmp.zbtitle}
+                                               href="${tmp.newsLink}">
+                                            ${tmp.newsTitle}
                                             </a>
                                         </div>
                                     </div>
@@ -320,60 +320,16 @@
 
 <!-- END CORE PLUGINS -->
 
-
-
 <script src="${rc.contextPath}/media/js/app.js"></script>
-
-<script src="${rc.contextPath}/media/js/login.js"></script>
 
 
 <script>
 
     jQuery(document).ready(function () {
-
-//        Login.init();
-
         App.init();
-
-        jQuery('#promo_carousel').carousel({
-
-            interval: 10000,
-
-            pause: 'hover'
-
-        });
-
     });
 
-    $(function() {
-        var availableTags = [
-            "ActionScript",
-            "AppleScript",
-            "Asp",
-            "BASIC",
-            "C",
-            "C++",
-            "Clojure",
-            "COBOL",
-            "ColdFusion",
-            "Erlang",
-            "Fortran",
-            "Groovy",
-            "Haskell",
-            "Java",
-            "JavaScript",
-            "Lisp",
-            "Perl",
-            "PHP",
-            "Python",
-            "Ruby",
-            "Scala",
-            "Scheme"
-        ];
-        $( "#querystring" ).autocomplete({
-            source: availableTags
-        });
-    });
+
 </script>
 
 
