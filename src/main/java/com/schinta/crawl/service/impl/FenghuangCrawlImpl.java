@@ -3,6 +3,7 @@ package com.schinta.crawl.service.impl;
 import com.schinta.crawl.model.News;
 import com.schinta.crawl.model.Site;
 
+import com.schinta.crawl.util.DateStringUtil;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.http.HttpEntity;
@@ -27,52 +28,51 @@ import java.util.List;
  * 日期： 2014/9/28.
  * 用途：
  */
-public class WangyiCrawlImpl extends BaseCrawlImpl {
+public class FenghuangCrawlImpl extends BaseCrawlImpl {
 
     @Override
     public void preCrawl() {
-        site = new Site( "http://news.163.com","网易国内新闻");
-        crawlUrls = new String[]{"http://news.163.com/domestic/", "http://news.163.com/special/0001124J/guoneinews_02.html#headList",
-                                   "http://news.163.com/special/0001124J/guoneinews_03.html#headList",
-                                   "http://news.163.com/special/0001124J/guoneinews_04.html#headList",
-                                   "http://news.163.com/special/0001124J/guoneinews_05.html#headList"};
-        cssSelector = "body#body div.area div.area-left div.list-item.clearfix div.item-top h2";
+        site = new Site( "http://www.ifeng.com/","凤凰资讯");
+        crawlUrls = new String[]{"http://news.ifeng.com/mainland/rt-channel/rtlist_0/index.shtml"};
+//        cssSelector = "body#body div.area div.area-left div.list-item.clearfix div.item-top h2";
     }
 
     @Override
     public List<News> doCrawl() {
         for (String crawUrl : crawlUrls) {
             String html = get(crawUrl);
+//            System.out.println(html);
             try {
                 //连接某个地址
                 Document doc = Jsoup.parse(html);
                 //找到所有新闻titleLink的样式
-                Elements elements = doc.select("body#body div.area div.area-left div.list-item.clearfix div.item-top h2");
+                Elements elements = doc.select("html body div.main div.left div.newsList ul li a");
                 //找到所有新闻发布时间的样式
-                Elements pubTimeElements = doc.select("body#body div.area div.area-left div.list-item.clearfix div.item-top p span.time");
+                Elements pubTimeElements = doc.select("html body div.main div.left div.newsList ul li h4");
                 //pubTimes 存储新闻发布时间
                 List<String> pubTimes = new LinkedList<String>();
 
                 //遍历元素抽取发布时间
                 for (Element time : pubTimeElements) {
-                    pubTimes.add(time.text());
+                    pubTimes.add(DateStringUtil.FenghuangDateFormat(time.text()));
                 }
                 int count = 0;
 
                 //遍历元素抽取其他信息
-                for (Element h2 : elements) {
+                for (Element a : elements) {
                     try {
-                        Element link = h2.select("a").first();
-                        String linkUrl = link.attr("abs:href");
-                        String title = link.text();
+//                        Element link = a.select("a").first();
+
+                        String linkUrl = a.attr("href");
+                        String title = a.text();
                         System.out.println(linkUrl);
                         System.out.println(title);
                         //To get news content
                         String contentCrawlUrl = linkUrl;
                         Document contentDoc = Jsoup.connect(contentCrawlUrl).get();
-                        Elements contentElements = contentDoc.select("body div#js-epContent.ep-content div.ep-content-bg.clearfix div#epContentLeft.ep-content-main div#endText.end-text");
-                        Element contentElement = contentElements.get(0);
-                        String content = contentElement.text();
+                        Elements contentElements = contentDoc.select("html body div.main div.left div#artical div#artical_real.js_img_share_area div#main_content.js_selection_area p");
+//                        Element contentElement = contentElements.get(0);
+                        String content = contentElements.text();
 //                        System.out.println(content);
 //                        System.out.println(pubTimes.get(count));
                         News one = new News();
@@ -85,7 +85,7 @@ public class WangyiCrawlImpl extends BaseCrawlImpl {
                         count++;
 
                     } catch (Exception e) {
-                        e.printStackTrace();
+//                        e.printStackTrace();
                         count++;
                     }
                 }
@@ -105,6 +105,7 @@ public class WangyiCrawlImpl extends BaseCrawlImpl {
         String htmlString = "";
         HttpClient httpClient = new HttpClient();
         GetMethod getMethod = new GetMethod(url);
+        getMethod.getParams().setContentCharset("UTF-8");
         try {
             int statusCode = httpClient.executeMethod(getMethod);
             if (statusCode != HttpStatus.SC_OK) {
@@ -127,7 +128,7 @@ public class WangyiCrawlImpl extends BaseCrawlImpl {
     }
 
     public static void main(String[] args) {
-        WangyiCrawlImpl crawl = new WangyiCrawlImpl();
+        FenghuangCrawlImpl crawl = new FenghuangCrawlImpl();
         crawl.preCrawl();
         List list = crawl.doCrawl();
         System.out.println("OK!");

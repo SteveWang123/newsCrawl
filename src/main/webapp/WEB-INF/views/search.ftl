@@ -71,67 +71,66 @@
 
             <a class="brand" style="width: 450px;">
                 <img src="${rc.contextPath}/media/image/logo.png" alt="logo"/>
-                水利工程招标信息汇总
-
+                新闻信息汇总
             </a>
 
             <!-- END LOGO -->
 
 
-            <div class="navbar hor-menu hidden-phone hidden-tablet">
+            <#--<div class="navbar hor-menu hidden-phone hidden-tablet">-->
 
-                <div class="navbar-inner">
+                <#--<div class="navbar-inner">-->
 
-                    <ul class="nav">
+                    <#--<ul class="nav">-->
 
-                        <li class="visible-phone visible-tablet">
+                        <#--<li class="visible-phone visible-tablet">-->
 
-                            <!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
+                            <#--<!-- BEGIN RESPONSIVE QUICK SEARCH FORM &ndash;&gt;-->
 
-                            <form class="sidebar-search">
+                            <#--<form class="sidebar-search">-->
 
-                                <div class="input-box">
+                                <#--<div class="input-box">-->
 
-                                    <a class="remove" href="javascript:;"></a>
+                                    <#--<a class="remove" href="javascript:;"></a>-->
 
-                                    <input type="text" placeholder="Search...">
+                                    <#--<input type="text" placeholder="Search...">-->
 
-                                    <input type="button" value=" " class="submit">
+                                    <#--<input type="button" value=" " class="submit">-->
 
-                                </div>
+                                <#--</div>-->
 
-                            </form>
+                            <#--</form>-->
 
-                            <!-- END RESPONSIVE QUICK SEARCH FORM -->
+                            <#--<!-- END RESPONSIVE QUICK SEARCH FORM &ndash;&gt;-->
 
-                        </li>
+                        <#--</li>-->
 
-                        <li>
-                            <a href="${rc.contextPath}/tologin.html" >
-                                所有信息
-                            </a>
-                        </li>
+                        <#--<li>-->
+                            <#--<a href="${rc.contextPath}/tologin.html" >-->
+                                <#--所有新闻-->
+                            <#--</a>-->
+                        <#--</li>-->
 
-                        <li class="active">
+                        <#--<li class="active">-->
 
-                            <a href="${rc.contextPath}/todaycrawl.html">
-                                今日抓取
-                            </a>
-                        </li>
+                            <#--<a href="${rc.contextPath}/todaycrawl.html">-->
+                                <#--今日抓取-->
+                            <#--</a>-->
+                        <#--</li>-->
 
-                        <li>
-                            <a href="${rc.contextPath}/todaypub.html">今日发布</a>
-                        </li>
+                        <#--<li>-->
+                            <#--<a href="${rc.contextPath}/todaypub.html">今日发布</a>-->
+                        <#--</li>-->
 
-                        <li>
-                            <a href="#">搜索</a>
-                        </li>
+                        <#--<li>-->
+                            <#--<a href="#">搜索</a>-->
+                        <#--</li>-->
 
-                    </ul>
+                    <#--</ul>-->
 
-                </div>
+                <#--</div>-->
 
-            </div>
+            <#--</div>-->
 
 
             <!-- BEGIN RESPONSIVE MENU TOGGLER -->
@@ -179,19 +178,19 @@
 
                     <h3 class="page-title">
 
-                        招标信息查询
+                        新闻信息查询
 
                     </h3>
 
-                    <ul class="breadcrumb">
+                    <#--<ul class="breadcrumb">-->
 
-                        <li>
+                        <#--<li>-->
 
-                            <i class="icon-home"></i>
+                            <#--<i class="icon-home"></i>-->
 
-                            <a href="index.html">输入关键字</a>
+                            <#--<a href="index.html">输入关键字</a>-->
 
-                    </ul>
+                    <#--</ul>-->
 
                     <!-- END PAGE TITLE & BREADCRUMB-->
 
@@ -206,28 +205,29 @@
 
 
             <div class="row-fluid">
+                <form action="${rc.contextPath}/tosearch.html" id="form1" method= "post" class="form-horizontal">
 
-                <div class="span12">
+                    <div class="span12">
 
-                    <div class="portlet box blue">
+                    <div class="portlet box">
 
                         <div class="portlet-body form">
 
                             <!-- BEGIN FORM-->
 
-                            <form action="${rc.contextPath}/tosearch.html" method="post" class="form-horizontal">
+                            <#--<form action="${rc.contextPath}/tosearch.html" method= "post" class="form-horizontal">-->
 
                                     <label class="control-label">请输入：</label>
 
                                     <div class="controls">
 
-                                        <input  name="querystring" type="text" class="span6 m-wrap"  />
+                                        <input  name="querystring" type="text" class="span6 m-wrap" value="${queryString!}" ></input>
 
-                                        <input id="su" class="btn blue" type="submit" value="搜索"  >
+                                        <input id="su" class="btn blue" type="button" value="搜索" onclick="doSubmit()" >
 
                                     </div>
 
-                            </form>
+                            <#--</form>-->
 
                             <!-- END FORM-->
 
@@ -252,7 +252,7 @@
                                     <div class="accordion-group">
                                         <div class="accordion-heading">
                                             <button class="btn red"
-                                                    type="button">${tmp.newsPubdate!""}</button>
+                                                    type="button">${tmp.newsPubdate!}</button>
                                             <a class="btn " target="_blank"
                                                href="${tmp.newsLink}">
                                             ${tmp.newsTitle}
@@ -268,9 +268,43 @@
                 </div>
 
             </div>
+
+                    <!-- paging -->
+                    <div class = "span 6" >
+                        <#--<div class="dataTables_paginate paging_bootstrap pagination">-->
+                            <#--<ul>-->
+                                <#--<li><a href="${rc.contextPath}/tosearch.html">1</a></li>-->
+                                <#--<li></li>-->
+                            <#--</ul>-->
+                        <#--</div>-->
+
+                        <#if pageList?exists>
+
+                        <select id="pageParameter" name= "pageParameter" class="small" onchange="$('#form1').submit();">
+                        <#list pageList as tmp>
+                            <option value="${tmp}" <#if pageParameter == tmp>selected </#if>>第${tmp}页</option>
+                        </#list>
+                                <#--<option value="1">1</option>-->
+                                <#--<option value="2">2</option>-->
+                                <#--<option value="3">3</option>-->
+                        </select>
+
+                        </#if>
+
+                        <#--<a class="btn green" data-toggle="dropdown" href="#">-->
+                            <#--<i class="icon-user"></i>-->
+                            <#--Select-->
+                            <#--<i class="icon-angle-down"></i>-->
+                        <#--</a>-->
+                    </div>
+                    <!-- paging -->
             <!-- END PAGE CONTENT-->
 
-        </div>
+
+                </div>
+
+                </form>
+
 
 
         <!-- END PAGE CONTAINER-->
@@ -329,6 +363,10 @@
         App.init();
     });
 
+function doSubmit(){
+    $('#pageParameter').val(1);
+    $('#form1').submit();
+}
 
 </script>
 

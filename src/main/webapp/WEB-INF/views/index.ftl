@@ -190,7 +190,7 @@
                                         <div class="row-fluid">
 
                                             <div class="span12">
-                                            <form action="/q/tosearch.html" class="form-horizontal" >
+                                            <form action="${rc.contextPath}/tosearch.html" class="form-horizontal" >
                                                 <div class="control-group">
 
                                                     <label class="control-label">搜索：</label>

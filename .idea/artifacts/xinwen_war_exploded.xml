@@ -8,9 +8,11 @@
           <element id="module-output" name="xinwen" />
         </element>
         <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: com.github.miemiedev:mybatis-paginator:1.2.15" />
+          <element id="library" level="project" name="Maven: org.mybatis:mybatis:3.2.7" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.7" />
           <element id="library" level="project" name="Maven: net.sourceforge.cglib:com.springsource.net.sf.cglib:2.2.0" />
           <element id="library" level="project" name="Maven: com.alibaba:druid:1.0.2" />
-          <element id="library" level="project" name="Maven: org.mybatis:mybatis:3.2.7" />
           <element id="library" level="project" name="Maven: org.mybatis:mybatis-spring:1.2.2" />
           <element id="library" level="project" name="Maven: org.jsoup:jsoup:1.7.3" />
           <element id="library" level="project" name="Maven: org.aspectj:aspectjrt:1.7.4" />
@@ -31,7 +33,6 @@
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-all:1.2.2" />
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-guice:1.2.2" />
           <element id="library" level="project" name="Maven: org.apache.shiro:shiro-core:1.2.2" />
-          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.7" />
           <element id="library" level="project" name="Maven: commons-beanutils:commons-beanutils:1.8.3" />
           <element id="library" level="project" name="Maven: com.google.guava:guava:17.0" />
           <element id="library" level="project" name="Maven: com.google.inject:guice:3.0" />
@@ -46,7 +47,7 @@
           <element id="library" level="project" name="Maven: javax.annotation:jsr250-api:1.0" />
           <element id="library" level="project" name="Maven: org.apache.solr:solr-solrj:4.10.2" />
           <element id="library" level="project" name="Maven: commons-io:commons-io:2.3" />
-          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.3.1" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.3.2" />
           <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.3" />
           <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpmime:4.3.1" />
           <element id="library" level="project" name="Maven: org.apache.zookeeper:zookeeper:3.4.6" />
